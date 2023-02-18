@@ -4,6 +4,7 @@ import express from "express";
 import { connectToDatabase } from "./database";
 import { employeeRouter } from "./employee.routes";
 
+
 // Load environment variables from the .env file, where the ATLAS_URI is configured
 dotenv.config();
 

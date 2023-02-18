@@ -5,6 +5,17 @@ import { collections } from "./database";
 export const employeeRouter = express.Router();
 employeeRouter.use(express.json());
 
+/**
+ * @swagger
+ * /employees:
+ *  get:
+ *    description: Use to get all employee list
+ *    responses:
+ *      '200':
+ *        description: A successful response
+ *      '500':
+ *        description: A error response
+ */
 employeeRouter.get("/", async (_req, res) => {
     try {
         const employees = await collections.employees.find({}).toArray();
@@ -14,6 +25,25 @@ employeeRouter.get("/", async (_req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * employees/id:
+ *  get:
+ *    description: Use to get specific employee
+ *    parameters:
+ *      name: id
+ *      in: path
+ *      description: Id of Employee
+ *      required: false
+ *      explode: true
+ *      schema:
+ *          type: Intger
+ *    responses:
+ *      '200':
+ *        description: A successful response
+ *      '404':
+ *        description: A error response
+ */
 employeeRouter.get("/:id", async (req, res) => {
     try {
         const id = req?.params?.id;
@@ -30,6 +60,17 @@ employeeRouter.get("/:id", async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /employees:
+ *  post:
+ *    description: Use to register employee
+ *    responses:
+ *      '201':
+ *        description: A successful response
+ *      '500':
+ *        description: A error response
+ */
 employeeRouter.post("/", async (req, res) => {
     try {
         const employee = req.body;
@@ -46,6 +87,21 @@ employeeRouter.post("/", async (req, res) => {
     }
 });
 
+
+/**
+ * @swagger
+ * /employees/id:
+ *  put:
+ *    description: Use to update specific employee
+ *    parameters:
+ *      'id' : 
+ *        description: Id of Employee
+ *    responses:
+ *      '200':
+ *        description: A successful response
+ *      '404':
+ *        description: A error response
+ */
 employeeRouter.put("/:id", async (req, res) => {
     try {
         const id = req?.params?.id;
@@ -65,6 +121,21 @@ employeeRouter.put("/:id", async (req, res) => {
         res.status(400).send(error.message);
     }
 });
+
+/**
+ * @swagger
+ * /employees/id:
+ *  delete:
+ *    description: Use to delete employee
+ *    parameters:
+ *      'id' : 
+ *        description: Id of Employee
+ *    responses:
+ *      '200':
+ *        description: A successful response
+ *      '500':
+ *        description: A error response
+ */
 
 employeeRouter.delete("/:id", async (req, res) => {
     try {
